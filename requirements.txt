@@ -1,4 +1,4 @@
-asgiref==3.5.2
+asgiref==3.8.1
 attrs==22.2.0
 Django==5.2.2
 django-bootstrap5==22.2
