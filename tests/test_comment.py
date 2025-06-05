@@ -22,7 +22,6 @@ from form.comment.find_urls import find_edit_and_delete_urls
 from test_content import ProfilePostContentTester, profile_content_tester
 from test_edit import _test_edit
 
-
 @pytest.mark.usefixtures("CommentModel", "CommentModelAdapter")
 @pytest.mark.parametrize(
     ("field", "type", "params", "field_error", "type_error",

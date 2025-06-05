@@ -327,9 +327,8 @@ class CommentUpdateView(CommentMixinView, UpdateView):
 
 
 class CommentDeleteView(CommentMixinView, DeleteView):
-    """Удаление комментария.
-
-    CommentMixinView: Базовый класс, предоставляющий функциональность.
-    """
-
-    ...
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Удаляем форму из контекста, если она там есть
+        context.pop('form', None)
+        return context
