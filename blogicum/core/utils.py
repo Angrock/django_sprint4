@@ -45,7 +45,7 @@ def get_post_data(post_data):
     """
     post = get_object_or_404(
         Post,
-        pk=post_data["pk"],
+        pk=post_data["post_id"],
         pub_date__lte=timezone.now(),
         is_published=True,
         category__is_published=True,
