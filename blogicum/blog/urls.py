@@ -13,7 +13,7 @@ urlpatterns = [
     ),
     # Категория.
     path(
-        "category/<slug:category_slug>/",
+        "category/<str:category_slug>/",
         views.CategoryPostListView.as_view(),
         name="category_posts",
     ),
@@ -21,13 +21,13 @@ urlpatterns = [
     # Для владельца страницы присутствует меню перехода на страницу
     # редактированию профиля и страницу смены пароля.
     path(
-        "profile/<slug:username>/",
+        "profile/<str:username>/",
         views.UserPostsListView.as_view(),
         name="profile",
     ),
     # Пост.
     path(
-        "posts/<int:pk>/",
+        "posts/<int:post_id>/",
         views.PostDetailView.as_view(),
         name="post_detail",
     ),
@@ -45,19 +45,19 @@ urlpatterns = [
     ),
     # Редактировать пост.
     path(
-        "posts/<int:pk>/edit/",
+        "posts/<int:edit_pk>/edit/",
         views.PostUpdateView.as_view(),
         name="edit_post",
     ),
     # Удалить пост.
     path(
-        "posts/<int:pk>/delete/",
+        "posts/<int:delete_pk>/delete/",
         views.PostDeleteView.as_view(),
         name="delete_post",
     ),
     # Добавить комментарий.
     path(
-        "posts/<int:pk>/comment/",
+        "posts/<int:comment_pk>/comment/",
         views.CommentCreateView.as_view(),
         name="add_comment",
     ),

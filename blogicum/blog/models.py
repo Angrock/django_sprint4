@@ -1,9 +1,15 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-
+from django.db.models import Count
 from core.models import BaseModel, BaseTitle
 
 User = get_user_model()
+
+
+class PostQuerySet(models.QuerySet):
+    """QuerySet с аннотацией количества комментариев."""
+    def with_comment_count(self):
+        return self.annotate(comment_count=Count('comments')).order_by('-pub_date')
 
 
 class Location(BaseModel):
@@ -12,7 +18,6 @@ class Location(BaseModel):
     Атрибуты:
         - name: Название места.
     """
-
     name = models.CharField(
         max_length=256,
         verbose_name="Название места",
@@ -34,7 +39,6 @@ class Category(BaseModel, BaseTitle):
         - description: Описание категории.
         - slug: Идентификатор страницы для URL.
     """
-
     description = models.TextField(
         verbose_name="Описание",
     )
@@ -65,10 +69,9 @@ class Post(BaseModel, BaseTitle):
         даты для отложенных публикаций.
         - author: Автор публикации.
         - location: Местоположение публикации, может быть пустым.
-        - category: Категория публикации, может быть пустой.
+        - category: Категория публикации, может быть пустая.
         - image: Изображение публикации может быть пустым.
     """
-
     text = models.TextField(
         verbose_name="Текст",
     )
@@ -103,6 +106,9 @@ class Post(BaseModel, BaseTitle):
         verbose_name="Изображение",
     )
 
+    # Подключение кастомного QuerySet
+    objects = PostQuerySet.as_manager()
+
     class Meta:
         verbose_name = "публикация"
         verbose_name_plural = "Публикации"
@@ -122,7 +128,6 @@ class Comment(models.Model):
         - author: Автор комментария.
         - created_at: Дата и время добавления комментария.
     """
-
     text = models.TextField(
         verbose_name="Комментарий",
     )
